@@ -23,7 +23,7 @@ function displayLibrary(array) {
 
   for (let book of array) {
     const bookContainer = document.createElement("article");
-    bookContainer.classList.add("book");
+    bookContainer.classList.add("library__book");
     bookContainer.setAttribute("data-id", book.id);
 
     let title = buildBookElement("h3", "book__title", book.title);
@@ -44,7 +44,7 @@ function displayLibrary(array) {
     library.appendChild(bookContainer);
   }
 
-  const addBookButton = `<button>
+  const addBookButton = `<button class="library__add-book">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -55,7 +55,7 @@ function displayLibrary(array) {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="feather feather-plus-circle"
+          class="feather feather-plus-circle add-book-icon"
         >
           <circle cx="12" cy="12" r="10"></circle>
           <line x1="12" y1="8" x2="12" y2="16"></line>

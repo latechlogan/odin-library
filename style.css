@@ -100,7 +100,37 @@ body {
   gap: 1rem;
 }
 
-.book {
+.library__add-book {
+  color: #4a4a4a;
+  padding: 1rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+  border: 2px solid #e6e6e6;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 200ms ease-in;
+}
+
+.library__add-book .add-book-icon {
+  margin: 0.5rem;
+  stroke: #8a8a8a;
+  transition: all 200ms ease-in;
+}
+
+.library__add-book:hover {
+  background-color: #e6e6e6;
+  transition: all 200ms ease-in;
+}
+
+.library__add-book:hover .add-book-icon {
+  stroke: #7a7a7a;
+}
+
+.library__book {
   padding: 1rem;
   margin: 0;
   border: 2px solid #eee;
