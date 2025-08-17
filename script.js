@@ -29,6 +29,7 @@ const addBookBtn = `
     </svg>
     Add Book
   </button>`;
+const removeBookBtn = `<button type="button" class="book__remove">Remove from Library</button>`;
 
 // HELPER FUNCTIONS
 
@@ -92,6 +93,7 @@ function displayLibrary(array) {
       book.readStatus ? "Read" : "Not Read"
     );
     bookContainer.append(title, author, numPages, format, readStatus);
+    bookContainer.insertAdjacentHTML("beforeend", removeBookBtn);
 
     library.appendChild(bookContainer);
   }
@@ -101,17 +103,28 @@ function displayLibrary(array) {
 
 // EVENT HANDLERS
 
-function handleModalOpen(e) {
+function handleLibraryClick(e) {
   if (
     e.target.matches(".library__add-book") ||
     e.target.matches(".add-book-icon")
   ) {
-    modal.showModal();
+    handleModalOpen();
   }
+  if (e.target.matches(".book__remove")) {
+    handleRemoveBook();
+  }
+}
+
+function handleModalOpen() {
+  modal.showModal();
 }
 
 function handleModalClose() {
   modal.close();
+}
+
+function handleRemoveBook() {
+  console.log("remove the book");
 }
 
 function handleFormSubmit(e) {
@@ -138,7 +151,7 @@ function handleFormSubmit(e) {
 // INIT & LISTENERS
 
 function init() {
-  library.addEventListener("click", handleModalOpen);
+  library.addEventListener("click", handleLibraryClick);
   modalCloseBtn.addEventListener("click", handleModalClose);
   modalSubmitBtn.addEventListener("click", (e) => handleFormSubmit(e));
 
@@ -148,6 +161,7 @@ function init() {
 // START THE APP
 document.addEventListener("DOMContentLoaded", init);
 
+// CREATE DUMMY DATA
 addBookToLibrary(
   "J.R.R. Tolkien",
   "Lord of the Rings",
@@ -155,6 +169,7 @@ addBookToLibrary(
   "Paperback",
   false
 );
+
 addBookToLibrary(
   "Cal Newport",
   "So Good They Can't Ignore You",
