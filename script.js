@@ -1,5 +1,22 @@
 const myLibrary = [];
 
+const modal = document.querySelector(".modal");
+const modalCloseBtn = document.querySelector(".modal__close");
+const library = document.querySelector(".library");
+
+library.addEventListener("click", (e) => {
+  if (
+    e.target.matches(".library__add-book") ||
+    e.target.matches(".add-book-icon")
+  ) {
+    modal.showModal();
+  }
+});
+
+modalCloseBtn.addEventListener("click", () => {
+  modal.close();
+});
+
 // MAIN FUNCTIONS
 
 function Book(author, title, numPages, format, readStatus, id) {
