@@ -69,13 +69,12 @@ addBookToLibrary(
   true
 );
 displayLibrary(myLibrary);
-// function for looping through array
-// function for displaying array
 
-// add new book button on library
-// tie "new book" button to form (author, title, # pages, unread/read)
-// preventDefault will come in handy
-
-// remove book button on book
-
-// unread/read toggle on book
+//TODO
+// [ ] add new book button on library
+// [ ] tie "new book" button to data input form
+// [ ] be sure to prevent default on form submission
+// [ ] remove book button on book elements
+// [ ] remove book function/logic
+// [ ] unread/read toggle on book elements
+// [ ] unread/read toggle logic
