@@ -40,7 +40,7 @@ function buildBookElement(tag, className, textContent) {
   return element;
 }
 
-function generateBookID() {
+function generateBookId() {
   return window.crypto.randomUUID();
 }
 
@@ -62,7 +62,7 @@ function addBookToLibrary(author, title, numPages, format, readStatus) {
     numPages,
     format,
     readStatus,
-    generateBookID
+    generateBookId()
   );
   myLibrary.push(book);
   displayLibrary(myLibrary);
@@ -111,7 +111,7 @@ function handleLibraryClick(e) {
     handleModalOpen();
   }
   if (e.target.matches(".book__remove")) {
-    handleRemoveBook();
+    handleRemoveBook(e);
   }
 }
 
@@ -123,8 +123,11 @@ function handleModalClose() {
   modal.close();
 }
 
-function handleRemoveBook() {
-  console.log("remove the book");
+function handleRemoveBook(e) {
+  targetId = e.target.parentNode.dataset.id;
+  indexToRemove = myLibrary.indexOf(targetId);
+  myLibrary.splice(indexToRemove, 1);
+  displayLibrary(myLibrary);
 }
 
 function handleFormSubmit(e) {
@@ -179,8 +182,9 @@ addBookToLibrary(
 );
 
 //TODO
-// handle modal after form submission
-// remove book button on book elements
-// remove book function/logic
 // unread/read toggle on book elements
 // unread/read toggle logic
+
+//FUTURE FEATURES
+// book cover images
+// confirmation before removing
