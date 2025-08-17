@@ -64,6 +64,7 @@ function addBookToLibrary(author, title, numPages, format, readStatus) {
     generateBookID
   );
   myLibrary.push(book);
+  displayLibrary(myLibrary);
 }
 
 // UI/DISPLAY FUNCTIONS
@@ -115,7 +116,23 @@ function handleModalClose() {
 
 function handleFormSubmit(e) {
   e.preventDefault();
-  console.log("registering form submission");
+  const authorInput = document.querySelector("#author").value;
+  const titleInput = document.querySelector("#title").value;
+  const numPagesInput = document.querySelector("#number-pages").value;
+  const formatInput =
+    document.querySelector('input[name="format"]:checked').value || "Unknown";
+  const readStatusInput =
+    document.querySelector('input[name="read-status"]:checked').value ||
+    "Unknown";
+  addBookToLibrary(
+    authorInput,
+    titleInput,
+    numPagesInput,
+    formatInput,
+    readStatusInput
+  );
+  modalForm.reset();
+  handleModalClose();
 }
 
 // INIT & LISTENERS
@@ -147,8 +164,7 @@ addBookToLibrary(
 );
 
 //TODO
-// tie "new book" button to data input form
-// be sure to prevent default on form submission
+// handle modal after form submission
 // remove book button on book elements
 // remove book function/logic
 // unread/read toggle on book elements
