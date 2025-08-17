@@ -7,6 +7,26 @@ const myLibrary = [];
 const modal = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".modal__close");
 const library = document.querySelector(".library");
+const addBookButton = `
+  <button class="library__add-book">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="feather feather-plus-circle add-book-icon"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="16"></line>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+    </svg>
+    Add Book
+  </button>`;
 
 // HELPER FUNCTIONS
 
@@ -15,6 +35,10 @@ buildBookElement = (tag, className, textContent) => {
   element.classList.add(className);
   element.textContent = textContent;
   return element;
+};
+
+generateBookID = () => {
+  return window.crypto.randomUUID();
 };
 
 // CORE FUNCTIONS
@@ -29,10 +53,18 @@ function Book(author, title, numPages, format, readStatus, id) {
 }
 
 function addBookToLibrary(author, title, numPages, format, readStatus) {
-  const id = window.crypto.randomUUID();
-  const book = new Book(author, title, numPages, format, readStatus, id);
+  const book = new Book(
+    author,
+    title,
+    numPages,
+    format,
+    readStatus,
+    generateBookID
+  );
   myLibrary.push(book);
 }
+
+// UI/DISPLAY FUNCTIONS
 
 function displayLibrary(array) {
   const library = document.querySelector(".library");
@@ -61,50 +93,30 @@ function displayLibrary(array) {
     library.appendChild(bookContainer);
   }
 
-  const addBookButton = `<button class="library__add-book">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-plus-circle add-book-icon"
-        >
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
-        Add Book
-      </button>`;
   library.insertAdjacentHTML("beforeend", addBookButton);
 }
 
-// DISPLAY FUNCTIONS
-
 // EVENT HANDLERS
+
+function handleModalOpen(e) {
+  if (
+    e.target.matches(".library__add-book") ||
+    e.target.matches(".add-book-icon")
+  ) {
+    modal.showModal();
+  }
+}
+
+function handleModalClose() {
+  modal.close();
+}
 
 // INIT & LISTENERS
 
 function init() {
-  // listeners
-  library.addEventListener("click", (e) => {
-    if (
-      e.target.matches(".library__add-book") ||
-      e.target.matches(".add-book-icon")
-    ) {
-      modal.showModal();
-    }
-  });
+  library.addEventListener("click", handleModalOpen);
+  modalCloseBtn.addEventListener("click", handleModalClose);
 
-  modalCloseBtn.addEventListener("click", () => {
-    modal.close();
-  });
-
-  // initial display
   displayLibrary(myLibrary);
 }
 
@@ -127,10 +139,9 @@ addBookToLibrary(
 );
 
 //TODO
-// [X] add new book button on library
-// [ ] tie "new book" button to data input form
-// [ ] be sure to prevent default on form submission
-// [ ] remove book button on book elements
-// [ ] remove book function/logic
-// [ ] unread/read toggle on book elements
-// [ ] unread/read toggle logic
+// tie "new book" button to data input form
+// be sure to prevent default on form submission
+// remove book button on book elements
+// remove book function/logic
+// unread/read toggle on book elements
+// unread/read toggle logic
