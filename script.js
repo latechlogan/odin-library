@@ -6,8 +6,10 @@ const myLibrary = [];
 
 const modal = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".modal__close");
+const modalForm = document.querySelector(".modal__form");
+const modalSubmitBtn = document.querySelector(".modal__form-submit");
 const library = document.querySelector(".library");
-const addBookButton = `
+const addBookBtn = `
   <button class="library__add-book">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +95,7 @@ function displayLibrary(array) {
     library.appendChild(bookContainer);
   }
 
-  library.insertAdjacentHTML("beforeend", addBookButton);
+  library.insertAdjacentHTML("beforeend", addBookBtn);
 }
 
 // EVENT HANDLERS
@@ -111,11 +113,17 @@ function handleModalClose() {
   modal.close();
 }
 
+function handleFormSubmit(e) {
+  e.preventDefault();
+  console.log("registering form submission");
+}
+
 // INIT & LISTENERS
 
 function init() {
   library.addEventListener("click", handleModalOpen);
   modalCloseBtn.addEventListener("click", handleModalClose);
+  modalSubmitBtn.addEventListener("click", (e) => handleFormSubmit(e));
 
   displayLibrary(myLibrary);
 }
