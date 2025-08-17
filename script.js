@@ -33,16 +33,16 @@ const removeBookBtn = `<button type="button" class="book__remove">Remove from Li
 
 // HELPER FUNCTIONS
 
-buildBookElement = (tag, className, textContent) => {
+function buildBookElement(tag, className, textContent) {
   let element = document.createElement(tag);
   element.classList.add(className);
   element.textContent = textContent;
   return element;
-};
+}
 
-generateBookID = () => {
+function generateBookID() {
   return window.crypto.randomUUID();
-};
+}
 
 // CORE FUNCTIONS
 
