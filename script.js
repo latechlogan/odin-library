@@ -19,6 +19,7 @@ function addBookToLibrary(author, title, numPages, format, readStatus) {
 
 function displayLibrary(array) {
   const library = document.querySelector(".library");
+  library.innerHTML = "";
 
   for (let book of array) {
     const bookContainer = document.createElement("article");
