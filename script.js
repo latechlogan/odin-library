@@ -1,23 +1,23 @@
+// DATA STORAGE & STATE
+
 const myLibrary = [];
+
+// DOM ELEMENTS
 
 const modal = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".modal__close");
 const library = document.querySelector(".library");
 
-library.addEventListener("click", (e) => {
-  if (
-    e.target.matches(".library__add-book") ||
-    e.target.matches(".add-book-icon")
-  ) {
-    modal.showModal();
-  }
-});
+// HELPER FUNCTIONS
 
-modalCloseBtn.addEventListener("click", () => {
-  modal.close();
-});
+buildBookElement = (tag, className, textContent) => {
+  let element = document.createElement(tag);
+  element.classList.add(className);
+  element.textContent = textContent;
+  return element;
+};
 
-// MAIN FUNCTIONS
+// CORE FUNCTIONS
 
 function Book(author, title, numPages, format, readStatus, id) {
   this.author = author;
@@ -83,14 +83,33 @@ function displayLibrary(array) {
   library.insertAdjacentHTML("beforeend", addBookButton);
 }
 
-// HELPERS
+// DISPLAY FUNCTIONS
 
-buildBookElement = (tag, className, textContent) => {
-  let element = document.createElement(tag);
-  element.classList.add(className);
-  element.textContent = textContent;
-  return element;
-};
+// EVENT HANDLERS
+
+// INIT & LISTENERS
+
+function init() {
+  // listeners
+  library.addEventListener("click", (e) => {
+    if (
+      e.target.matches(".library__add-book") ||
+      e.target.matches(".add-book-icon")
+    ) {
+      modal.showModal();
+    }
+  });
+
+  modalCloseBtn.addEventListener("click", () => {
+    modal.close();
+  });
+
+  // initial display
+  displayLibrary(myLibrary);
+}
+
+// START THE APP
+document.addEventListener("DOMContentLoaded", init);
 
 addBookToLibrary(
   "J.R.R. Tolkien",
@@ -106,7 +125,6 @@ addBookToLibrary(
   "Hardcover",
   true
 );
-displayLibrary(myLibrary);
 
 //TODO
 // [X] add new book button on library
