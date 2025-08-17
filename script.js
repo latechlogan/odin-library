@@ -1,19 +1,6 @@
-const myLibrary = [
-  {
-    author: "Tolkien",
-    title: "LOTR",
-    numPages: 1000,
-    format: "Paperback",
-    readStatus: "Unread",
-  },
-  {
-    author: "Cal Newport",
-    title: "So Good They Can't Ignore You",
-    numPages: 350,
-    format: "Hardcover",
-    readStatus: "Read",
-  },
-];
+const myLibrary = [];
+
+// MAIN FUNCTIONS
 
 function Book(author, title, numPages, format, readStatus, id) {
   this.author = author;
@@ -36,36 +23,50 @@ function displayLibrary(array) {
   for (let book of array) {
     const bookContainer = document.createElement("article");
     bookContainer.classList.add("book");
+    bookContainer.setAttribute("data-id", book.id);
 
-    let title = document.createElement("h3");
-    title.classList.add("book__title");
-    title.textContent = `${book.title}`;
-    bookContainer.appendChild(title);
-
-    let author = document.createElement("p");
-    author.classList.add("book__author");
-    author.textContent = `${book.author}`;
-    bookContainer.appendChild(author);
-
-    let numPages = document.createElement("p");
-    numPages.classList.add("book__number-pages");
-    numPages.textContent = `${book.numPages}`;
-    bookContainer.appendChild(numPages);
-
-    let format = document.createElement("p");
-    format.classList.add("book__format");
-    format.textContent = `${book.format}`;
-    bookContainer.appendChild(format);
-
-    let readStatus = document.createElement("p");
-    readStatus.classList.add("book__read-status");
-    readStatus.textContent = `${book.readStatus}`;
-    bookContainer.appendChild(readStatus);
+    let title = buildBookElement("h3", "book__title", book.title);
+    let author = buildBookElement("p", "book__author", book.author);
+    let numPages = buildBookElement(
+      "p",
+      "book__number-pages",
+      `${book.numPages} pages`
+    );
+    let format = buildBookElement("p", "book__format", book.format);
+    let readStatus = buildBookElement(
+      "p",
+      "book__read-status",
+      book.readStatus ? "Read" : "Not Read"
+    );
+    bookContainer.append(title, author, numPages, format, readStatus);
 
     library.appendChild(bookContainer);
   }
 }
 
+// HELPERS
+
+buildBookElement = (tag, className, textContent) => {
+  let element = document.createElement(tag);
+  element.classList.add(className);
+  element.textContent = textContent;
+  return element;
+};
+
+addBookToLibrary(
+  "J.R.R. Tolkien",
+  "Lord of the Rings",
+  1000,
+  "Paperback",
+  false
+);
+addBookToLibrary(
+  "Cal Newport",
+  "So Good They Can't Ignore You",
+  250,
+  "Hardcover",
+  true
+);
 displayLibrary(myLibrary);
 // function for looping through array
 // function for displaying array
