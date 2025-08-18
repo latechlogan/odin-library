@@ -137,6 +137,104 @@ body {
   border-radius: 0.5rem;
 }
 
+/* checkbox toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.switch::before {
+  content: "Not Read";
+  color: #595959;
+  text-align: center;
+  width: 50%;
+  height: 2.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease;
+}
+
+.switch::after {
+  content: "Read";
+  color: #616161;
+  text-align: center;
+  width: 50%;
+  height: 2.5rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 2.5rem;
+  -webkit-transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
+  transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  width: calc(50% - 4px);
+  height: calc(2.5rem - 8px);
+  left: 4px;
+  bottom: 4px;
+  background-color: #fff;
+  border-radius: calc(2.5rem - 8px);
+  -webkit-transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
+  transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
+}
+
+.switch:has(input:checked)::before {
+  color: darkblue;
+  transition: all 300ms ease;
+}
+
+.switch:has(input:checked)::after {
+  color: #222;
+  transition: all 300ms ease;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(calc(calc(100%)));
+  -ms-transform: translateX(calc(calc(100%)));
+  transform: translateX(calc(calc(100%)));
+}
+
 .modal {
   position: absolute;
   top: 50%;

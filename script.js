@@ -29,6 +29,12 @@ const addBookBtn = `
     </svg>
     Add Book
   </button>`;
+const readStatusToggle = `
+  <label class="switch">
+    <input type="checkbox" />
+    <span class="slider"></span>
+  </label>
+`;
 const removeBookBtn = `<button type="button" class="book__remove">Remove from Library</button>`;
 
 // HELPER FUNCTIONS
@@ -93,6 +99,7 @@ function displayLibrary(array) {
       book.readStatus ? "Read" : "Not Read"
     );
     bookContainer.append(title, author, numPages, format, readStatus);
+    bookContainer.insertAdjacentHTML("beforeend", readStatusToggle);
     bookContainer.insertAdjacentHTML("beforeend", removeBookBtn);
 
     library.appendChild(bookContainer);
