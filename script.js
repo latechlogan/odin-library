@@ -29,18 +29,12 @@ const addBookBtn = `
     </svg>
     Add Book
   </button>`;
-const readStatusToggle = `
-  <label class="switch">
-    <input type="checkbox" />
-    <span class="slider"></span>
-  </label>
-`;
 const removeBookBtn = `<button type="button" class="book__remove">Remove from Library</button>`;
 
 // HELPER FUNCTIONS
 
 function buildBookElement(tag, className, textContent) {
-  let element = document.createElement(tag);
+  const element = document.createElement(tag);
   element.classList.add(className);
   element.textContent = textContent;
   return element;
@@ -48,6 +42,23 @@ function buildBookElement(tag, className, textContent) {
 
 function generateBookId() {
   return window.crypto.randomUUID();
+}
+
+function buildCheckboxElement(bookId, isChecked) {
+  const label = document.createElement("label");
+  label.classList.add("switch");
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = `read-status-${bookId}`;
+  checkbox.name = `read-status-${bookId}`;
+  checkbox.checked = isChecked;
+
+  const span = document.createElement("span");
+  span.classList.add("slider");
+
+  label.append(checkbox, span);
+  return label;
 }
 
 // CORE FUNCTIONS
@@ -93,13 +104,8 @@ function displayLibrary(array) {
       `${book.numPages} pages`
     );
     let format = buildBookElement("p", "book__format", book.format);
-    let readStatus = buildBookElement(
-      "p",
-      "book__read-status",
-      book.readStatus ? "Read" : "Not Read"
-    );
-    bookContainer.append(title, author, numPages, format, readStatus);
-    bookContainer.insertAdjacentHTML("beforeend", readStatusToggle);
+    bookContainer.append(title, author, numPages, format);
+    bookContainer.append(buildCheckboxElement(book.id, book.readStatus));
     bookContainer.insertAdjacentHTML("beforeend", removeBookBtn);
 
     library.appendChild(bookContainer);
@@ -120,6 +126,9 @@ function handleLibraryClick(e) {
   if (e.target.matches(".book__remove")) {
     handleRemoveBook(e);
   }
+  if (e.target.matches(".switch")) {
+    handleReadStatusToggle(e);
+  }
 }
 
 function handleModalOpen() {
@@ -130,6 +139,7 @@ function handleModalClose() {
   modal.close();
 }
 
+// bugs need to be fixed
 function handleRemoveBook(e) {
   targetId = e.target.parentNode.dataset.id;
   indexToRemove = myLibrary.indexOf(targetId);
@@ -156,6 +166,12 @@ function handleFormSubmit(e) {
   );
   modalForm.reset();
   handleModalClose();
+}
+
+function handleReadStatusToggle(e) {
+  const targetId = e.target.parentNode.dataset.id;
+  const indexToUpdate = myLibrary.findIndex((obj) => obj.id === targetId);
+  myLibrary[indexToUpdate].readStatus = !myLibrary[indexToUpdate].readStatus;
 }
 
 // INIT & LISTENERS
