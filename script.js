@@ -139,10 +139,9 @@ function handleModalClose() {
   modal.close();
 }
 
-// bugs need to be fixed
 function handleRemoveBook(e) {
-  targetId = e.target.parentNode.dataset.id;
-  indexToRemove = myLibrary.indexOf(targetId);
+  const targetId = e.target.parentNode.dataset.id;
+  const indexToRemove = myLibrary.findIndex((obj) => obj.id === targetId);
   myLibrary.splice(indexToRemove, 1);
   displayLibrary(myLibrary);
 }
