@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Odin | Library</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nata+Sans:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom Stylesheets -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -27,43 +35,109 @@
           </svg>
         </button>
       </div>
-      <form class="modal__form">
-        <h2>Add Book Information:</h2>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" />
+      <form action="#" class="modal__form">
+        <section class="modal__intro">
+          <h2 class="text-h3">New Book</h2>
+          <p class="text-p instruct">
+            Please provide the information for the book you would like to add to
+            your library.
+          </p>
+          <p class="text-p instruct">
+            Required fields are followed by
+            <span aria-label="required">*</span>.
+          </p>
+        </section>
 
-        <label for="author">Author</label>
-        <input type="text" name="author" id="author" />
+        <p class="input-wrapper">
+          <label for="title">Title<span aria-label="required">*</span></label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="The Great Gatsby"
+            required
+          />
+        </p>
 
-        <label for="number-pages">Number of Pages</label>
-        <input type="tel" name="number-pages" id="number-pages" />
+        <p class="input-wrapper">
+          <label for="author">Author<span aria-label="required">*</span></label>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            placeholder="F. Scott Fitzgerald"
+            required
+          />
+        </p>
+
+        <p class="input-wrapper">
+          <label for="number-pages">Length (Pages)</label>
+          <input
+            type="tel"
+            name="number-pages"
+            id="number-pages"
+            placeholder="180"
+          />
+        </p>
 
         <fieldset>
           <legend>Book Format</legend>
-          <input type="radio" name="format" id="hardback" value="hardback" />
-          <label for="hardback">Hardback</label>
+          <label for="hardback">
+            <input type="radio" name="format" id="hardback" value="hardback" />
+            Hardcover
+          </label>
 
-          <input type="radio" name="format" id="paperback" value="paperback" />
-          <label for="paperback">Paperback</label>
+          <label for="paperback">
+            <input
+              type="radio"
+              name="format"
+              id="paperback"
+              value="paperback"
+            />
+            Paperback
+          </label>
 
-          <input type="radio" name="format" id="e-reader" value="e-reader" />
-          <label for="e-reader">E-reader</label>
+          <label for="e-reader">
+            <input type="radio" name="format" id="e-reader" value="e-reader" />
+            E-reader
+          </label>
         </fieldset>
 
         <fieldset>
           <legend>Have you read this book?</legend>
-          <input type="radio" name="read-status" id="true" value="true" />
-          <label for="true">Yes</label>
+          <label for="true">
+            <input type="radio" name="read-status" id="true" value="true" />
+            Yes
+          </label>
 
-          <input type="radio" name="read-status" id="false" value="false" />
-          <label for="false">No, not yet</label>
+          <label for="false">
+            <input type="radio" name="read-status" id="false" value="false" />
+            Not yet
+          </label>
         </fieldset>
 
-        <button type="submit" class="modal__form-submit">Add Book</button>
+        <button type="submit" class="modal__form-submit">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-plus modal__add-book-icon"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add Book
+        </button>
       </form>
       <div class="modal__footer"></div>
     </dialog>
-    <h1>Odin Library</h1>
+    <h1 class="text-h1">Odin Library</h1>
     <div class="library">
       <button class="library__add-book">
         <svg
@@ -76,11 +150,10 @@
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="feather feather-plus-circle add-book-icon"
+          class="feather feather-plus add-book-icon"
         >
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
         Add Book
       </button>

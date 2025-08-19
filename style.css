@@ -76,6 +76,59 @@ h6 {
   isolation: isolate;
 }
 
+/* FONTS */
+
+@font-face {
+  font-family: "Canicule Display";
+  src: url(./assets/fonts/CaniculeDisplayv0.4Trials/otfs/CaniculeDisplayv0.4-Bold.Trial.otf);
+}
+
+html,
+body {
+  font-family: "Nata Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #222;
+}
+
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6 {
+  font-family: "Canicule Display";
+  font-weight: bold;
+}
+
+.text-h1 {
+  font-size: 2.986rem;
+}
+.text-h2 {
+  font-size: 2.488rem;
+}
+.text-h3 {
+  font-size: 2.074rem;
+}
+.text-h4 {
+  font-size: 1.728rem;
+}
+.text-h5 {
+  font-size: 1.44rem;
+}
+.text-h6 {
+  font-size: 1.2rem;
+}
+.text-p {
+  font-size: 1rem;
+}
+.text-small {
+  font-size: 0.909rem;
+}
+.text-x-small {
+  font-size: 0.833rem;
+}
+
 /* ELEMENTS */
 
 body {
@@ -96,7 +149,7 @@ body {
   margin: 1rem auto;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }
 
@@ -121,6 +174,16 @@ body {
   transition: all 200ms ease-in;
 }
 
+.library__add-book .add-book-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
+
 .library__add-book:hover {
   background-color: #e6e6e6;
   transition: all 200ms ease-in;
@@ -135,19 +198,75 @@ body {
   margin: 0;
   border: 2px solid #eee;
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.book__title {
+  font-family: "Canicule Display";
+  font-size: 1.728rem;
+  line-height: 1.2;
+  padding: 0.5rem 0 0 0;
+  flex-grow: 1;
+}
+
+.book__author {
+  font-size: 0.909rem;
+  margin: 1rem 0 0.125rem 0;
+}
+
+.book__number-pages {
+  font-size: 0.909rem;
+  margin: 0.125rem 0;
+}
+
+.book__format {
+  font-size: 0.909rem;
+  margin: 0.125rem 0 0.25rem 0;
+}
+
+.book__remove {
+  color: #767676;
+  width: 100%;
+  padding: 1rem 0 0.5rem 0;
+  margin: 1rem 0 0 0;
+  background: #fff;
+  border: none;
+  border-top: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.book__remove:hover {
+  background: radial-gradient(ellipse at center top, #f2f2f2 0%, #fff 70%);
+}
+
+.remove-book-icon {
+  width: 1rem;
+  height: 100%;
+  margin-right: 0.5rem;
 }
 
 /* checkbox toggle */
+
 .switch {
   position: relative;
   display: inline-block;
   width: 100%;
   height: 2.5rem;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  cursor: pointer;
 }
 
 .switch::before {
   content: "Not Read";
-  color: #595959;
+  font-size: 0.909rem;
   text-align: center;
   width: 50%;
   height: 2.5rem;
@@ -164,7 +283,8 @@ body {
 
 .switch::after {
   content: "Read";
-  color: #616161;
+  font-size: 0.909rem;
+  color: #676767;
   text-align: center;
   width: 50%;
   height: 2.5rem;
@@ -192,7 +312,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #e6e6e6;
+  border: 1px solid #c6c6c6;
   border-radius: 2.5rem;
   -webkit-transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
   transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
@@ -204,25 +325,28 @@ body {
   width: calc(50% - 4px);
   height: calc(2.5rem - 8px);
   left: 4px;
-  bottom: 4px;
+  top: 3px;
   background-color: #fff;
   border-radius: calc(2.5rem - 8px);
   -webkit-transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
   transition: all 0.3s cubic-bezier(1, 0, 0.31, 1.24);
+  box-shadow: rgba(60, 64, 67, 0.2) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.1) 0px 1px 3px 1px;
 }
 
 .switch:has(input:checked)::before {
-  color: darkblue;
+  color: #1a6136;
   transition: all 300ms ease;
 }
 
 .switch:has(input:checked)::after {
-  color: #222;
+  color: initial;
   transition: all 300ms ease;
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #b4ebca;
+  border: 1px solid #3ecc79;
 }
 
 input:focus + .slider {
@@ -230,18 +354,131 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
+  box-shadow: rgba(21, 81, 46, 0.2) 0px 1px 2px 0px,
+    rgba(21, 81, 46, 0.1) 0px 1px 3px 1px;
   -webkit-transform: translateX(calc(calc(100%)));
   -ms-transform: translateX(calc(calc(100%)));
   transform: translateX(calc(calc(100%)));
 }
+
+/* modal elements */
 
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 320px;
+  max-width: 560px;
+  padding: clamp(1rem, 2vw, 1.8rem);
+  margin: 0;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .modal:-internal-dialog-in-top-layer::backdrop {
   background: rgba(0, 0, 0, 0.32);
+}
+
+.modal__header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal__close {
+  width: 2rem;
+  height: auto;
+  padding: 0.25rem;
+  margin: 0;
+  background-color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  background-color: #f2f2f2;
+}
+
+.modal__form {
+  width: 100%;
+  padding: 0 clamp(1rem, 2vw, 1.8rem) clamp(1rem, 2vw, 1.8rem)
+    clamp(1rem, 2vw, 1.8rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  appearance: none;
+}
+
+.modal__intro .instruct {
+  text-wrap: balance;
+  margin: 0 0 0.5rem 0;
+}
+
+.modal__intro .instruct:last-of-type {
+  margin: 0 0 1rem 0;
+}
+
+.input-wrapper {
+  width: 100%;
+  padding: 0;
+  margin: 0.25rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.input-wrapper > * {
+  width: 100%;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0.375rem 0;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+fieldset > * {
+  margin: 0.125rem 1rem 0.125rem 0;
+}
+
+.modal__form-submit {
+  color: #15512d;
+  /* font-family: "Canicule Display";
+  font-size: 1.2rem;
+  letter-spacing: 0.02rem;
+  font-weight: bold; */
+  padding: 0.5rem 1rem;
+  margin: 1rem 0 0 0;
+  background-color: #b4ebca;
+  border: 1px solid #3ecc79;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.modal__add-book-icon {
+  width: 16px;
+  height: auto;
+  margin: 0 0.375rem 0 0;
+}
+
+.input-wrapper > label,
+legend {
+  font-weight: 600;
 }

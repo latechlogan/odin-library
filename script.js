@@ -21,15 +21,33 @@ const addBookBtn = `
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="feather feather-plus-circle add-book-icon"
+      class="feather feather-plus add-book-icon"
     >
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="12" y1="8" x2="12" y2="16"></line>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
     </svg>
     Add Book
-  </button>`;
-const removeBookBtn = `<button type="button" class="book__remove">Remove from Library</button>`;
+  </button>
+`;
+const removeBookBtn = `
+  <button type="button" class="book__remove text-small">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="feather feather-x remove-book-icon"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line></svg
+    >Remove Book
+  </button>
+`;
 
 // HELPER FUNCTIONS
 
@@ -97,13 +115,21 @@ function displayLibrary(array) {
     bookContainer.setAttribute("data-id", book.id);
 
     let title = buildBookElement("h3", "book__title", book.title);
-    let author = buildBookElement("p", "book__author", book.author);
+    let author = buildBookElement(
+      "p",
+      "book__author",
+      `Author:  ${book.author}`
+    );
     let numPages = buildBookElement(
       "p",
       "book__number-pages",
-      `${book.numPages} pages`
+      `Length:  ${book.numPages} pages`
     );
-    let format = buildBookElement("p", "book__format", book.format);
+    let format = buildBookElement(
+      "p",
+      "book__format",
+      `Format:  ${book.format}`
+    );
     bookContainer.append(title, author, numPages, format);
     bookContainer.append(buildCheckboxElement(book.id, book.readStatus));
     bookContainer.insertAdjacentHTML("beforeend", removeBookBtn);
