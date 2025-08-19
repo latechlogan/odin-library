@@ -204,7 +204,7 @@ function handleReadStatusToggle(e) {
 function init() {
   library.addEventListener("click", handleLibraryClick);
   modalCloseBtn.addEventListener("click", handleModalClose);
-  modalSubmitBtn.addEventListener("click", (e) => handleFormSubmit(e));
+  modalForm.addEventListener("submit", (e) => handleFormSubmit(e));
 
   displayLibrary([...myLibrary].reverse());
 }
