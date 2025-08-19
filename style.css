@@ -144,12 +144,12 @@ body {
 
 .library {
   width: 100%;
-  max-width: 900px;
+  max-width: 1120px;
   padding: 1.5rem;
   margin: 1rem auto;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
