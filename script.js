@@ -86,7 +86,7 @@ function Book(author, title, numPages, format, readStatus, id) {
   this.title = title;
   this.numPages = numPages;
   this.format = format;
-  this.readStatus = readStatus;
+  this.readStatus = readStatus === "true";
   this.id = id;
 }
 
@@ -123,7 +123,9 @@ function displayLibrary(array) {
     let numPages = buildBookElement(
       "p",
       "book__number-pages",
-      `Length:  ${book.numPages} pages`
+      `Length:  ${
+        book.numPages === "Unknown" ? "Unknown" : book.numPages + " pages"
+      }`
     );
     let format = buildBookElement(
       "p",
@@ -176,12 +178,18 @@ function handleFormSubmit(e) {
   e.preventDefault();
   const authorInput = document.querySelector("#author").value;
   const titleInput = document.querySelector("#title").value;
-  const numPagesInput = document.querySelector("#number-pages").value;
-  const formatInput =
-    document.querySelector('input[name="format"]:checked').value || "Unknown";
-  const readStatusInput =
-    document.querySelector('input[name="read-status"]:checked').value ||
-    "Unknown";
+  const numPagesInput =
+    document.querySelector("#number-pages").value !== ""
+      ? document.querySelector("#number-pages").value
+      : "Unknown";
+  const formatInput = document.querySelector('input[name="format"]:checked')
+    ? document.querySelector('input[name="format"]:checked').value
+    : `Unknown`;
+  const readStatusInput = document.querySelector(
+    'input[name="read-status"]:checked'
+  )
+    ? document.querySelector('input[name="read-status"]:checked').value
+    : false;
   addBookToLibrary(
     authorInput,
     titleInput,
@@ -213,14 +221,14 @@ function init() {
 document.addEventListener("DOMContentLoaded", init);
 
 // CREATE DUMMY DATA
-addBookToLibrary("Gordon L. Rottman", "The Hardest Ride", 299, "eBook", true);
+addBookToLibrary("Gordon L. Rottman", "The Hardest Ride", 299, "eBook", "true");
 
 addBookToLibrary(
   "Cal Newport",
   "So Good They Cant Ignore You",
   288,
   "Hardcover",
-  true
+  "true"
 );
 
 //TODO
