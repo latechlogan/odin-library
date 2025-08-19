@@ -213,18 +213,12 @@ function init() {
 document.addEventListener("DOMContentLoaded", init);
 
 // CREATE DUMMY DATA
-addBookToLibrary(
-  "J.R.R. Tolkien",
-  "Lord of the Rings",
-  1000,
-  "Paperback",
-  false
-);
+addBookToLibrary("Gordon L. Rottman", "The Hardest Ride", 299, "eBook", true);
 
 addBookToLibrary(
   "Cal Newport",
-  "So Good They Can't Ignore You",
-  250,
+  "So Good They Cant Ignore You",
+  288,
   "Hardcover",
   true
 );
