@@ -100,7 +100,7 @@ function addBookToLibrary(author, title, numPages, format, readStatus) {
     generateBookId()
   );
   myLibrary.push(book);
-  displayLibrary(myLibrary);
+  displayLibrary([...myLibrary].reverse());
 }
 
 // UI/DISPLAY FUNCTIONS
@@ -137,7 +137,7 @@ function displayLibrary(array) {
     library.appendChild(bookContainer);
   }
 
-  library.insertAdjacentHTML("beforeend", addBookBtn);
+  library.insertAdjacentHTML("afterbegin", addBookBtn);
 }
 
 // EVENT HANDLERS
@@ -169,7 +169,7 @@ function handleRemoveBook(e) {
   const targetId = e.target.parentNode.dataset.id;
   const indexToRemove = myLibrary.findIndex((obj) => obj.id === targetId);
   myLibrary.splice(indexToRemove, 1);
-  displayLibrary(myLibrary);
+  displayLibrary([...myLibrary].reverse());
 }
 
 function handleFormSubmit(e) {
@@ -206,7 +206,7 @@ function init() {
   modalCloseBtn.addEventListener("click", handleModalClose);
   modalSubmitBtn.addEventListener("click", (e) => handleFormSubmit(e));
 
-  displayLibrary(myLibrary);
+  displayLibrary([...myLibrary].reverse());
 }
 
 // START THE APP
