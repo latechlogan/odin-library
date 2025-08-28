@@ -1,6 +1,6 @@
 // DATA STORAGE & STATE
 
-const myLibrary = [];
+let myLibrary;
 
 // DOM ELEMENTS
 
@@ -81,26 +81,42 @@ function buildCheckboxElement(bookId, isChecked) {
 
 // CORE FUNCTIONS
 
-function Book(author, title, numPages, format, readStatus, id) {
-  this.author = author;
-  this.title = title;
-  this.numPages = numPages;
-  this.format = format;
-  this.readStatus = readStatus === "true";
-  this.id = id;
+class Library {
+  constructor() {
+    this.books = [];
+  }
+
+  addBook(book) {
+    this.books.push(book);
+    this.display();
+  }
+
+  removeBook(id) {
+    const indexToRemove = this.books.findIndex((obj) => obj.id === id);
+    if (indexToRemove > -1) {
+      this.books.splice(indexToRemove, 1);
+      this.display();
+    }
+  }
+
+  display() {
+    displayLibrary([...this.books].reverse());
+  }
 }
 
-function addBookToLibrary(author, title, numPages, format, readStatus) {
-  const book = new Book(
-    author,
-    title,
-    numPages,
-    format,
-    readStatus,
-    generateBookId()
-  );
-  myLibrary.push(book);
-  displayLibrary([...myLibrary].reverse());
+class Book {
+  constructor(author, title, numPages, format, readStatus, id) {
+    this.author = author;
+    this.title = title;
+    this.numPages = numPages;
+    this.format = format;
+    this.readStatus = readStatus === "true";
+    this.id = generateBookId();
+  }
+
+  toggleReadStatus = () => {
+    this.readStatus = !this.readStatus;
+  };
 }
 
 // UI/DISPLAY FUNCTIONS
@@ -169,9 +185,7 @@ function handleModalClose() {
 
 function handleRemoveBook(e) {
   const targetId = e.target.parentNode.dataset.id;
-  const indexToRemove = myLibrary.findIndex((obj) => obj.id === targetId);
-  myLibrary.splice(indexToRemove, 1);
-  displayLibrary([...myLibrary].reverse());
+  myLibrary.removeBook(targetId);
 }
 
 function handleFormSubmit(e) {
@@ -190,50 +204,55 @@ function handleFormSubmit(e) {
   )
     ? document.querySelector('input[name="read-status"]:checked').value
     : false;
-  addBookToLibrary(
+  const book = new Book(
     authorInput,
     titleInput,
     numPagesInput,
     formatInput,
     readStatusInput
   );
+  myLibrary.addBook(book);
   modalForm.reset();
   handleModalClose();
 }
 
 function handleReadStatusToggle(e) {
   const targetId = e.target.parentNode.dataset.id;
-  const indexToUpdate = myLibrary.findIndex((obj) => obj.id === targetId);
-  myLibrary[indexToUpdate].readStatus = !myLibrary[indexToUpdate].readStatus;
+  const bookToUpdate = myLibrary.books.filter((obj) => obj.id === targetId)[0];
+  bookToUpdate.toggleReadStatus();
 }
 
 // INIT & LISTENERS
 
 function init() {
+  myLibrary = new Library();
   library.addEventListener("click", handleLibraryClick);
   modalCloseBtn.addEventListener("click", handleModalClose);
   modalForm.addEventListener("submit", (e) => handleFormSubmit(e));
 
-  displayLibrary([...myLibrary].reverse());
+  // CREATE DUMMY DATA
+  let book1 = new Book(
+    "Gordon L. Rottman",
+    "The Hardest Ride",
+    299,
+    "eBook",
+    "true"
+  );
+  let book2 = new Book(
+    "Cal Newport",
+    "So Good They Cant Ignore You",
+    288,
+    "Hardcover",
+    "true"
+  );
+  myLibrary.addBook(book1);
+  myLibrary.addBook(book2);
+
+  myLibrary.display();
 }
 
 // START THE APP
 document.addEventListener("DOMContentLoaded", init);
-
-// CREATE DUMMY DATA
-addBookToLibrary("Gordon L. Rottman", "The Hardest Ride", 299, "eBook", "true");
-
-addBookToLibrary(
-  "Cal Newport",
-  "So Good They Cant Ignore You",
-  288,
-  "Hardcover",
-  "true"
-);
-
-//TODO
-// unread/read toggle on book elements
-// unread/read toggle logic
 
 //FUTURE FEATURES
 // book cover images
