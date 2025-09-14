@@ -7,6 +7,10 @@ let myLibrary;
 const modal = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".modal__close");
 const modalForm = document.querySelector(".modal__form");
+const author = document.querySelector("#author");
+const authorError = document.querySelector("#author + span");
+const title = document.querySelector("#title");
+const titleError = document.querySelector("#title + span");
 const modalSubmitBtn = document.querySelector(".modal__form-submit");
 const library = document.querySelector(".library");
 const addBookBtn = `
@@ -190,30 +194,54 @@ function handleRemoveBook(e) {
 
 function handleFormSubmit(e) {
   e.preventDefault();
-  const authorInput = document.querySelector("#author").value;
-  const titleInput = document.querySelector("#title").value;
-  const numPagesInput =
+
+  if (!title.validity.valid) {
+    handleInputError(title, titleError);
+  }
+
+  if (!author.validity.valid) {
+    handleInputError(author, authorError);
+  }
+
+  const numPages =
     document.querySelector("#number-pages").value !== ""
       ? document.querySelector("#number-pages").value
       : "Unknown";
-  const formatInput = document.querySelector('input[name="format"]:checked')
+  const format = document.querySelector('input[name="format"]:checked')
     ? document.querySelector('input[name="format"]:checked').value
     : `Unknown`;
-  const readStatusInput = document.querySelector(
-    'input[name="read-status"]:checked'
-  )
+  const readStatus = document.querySelector('input[name="read-status"]:checked')
     ? document.querySelector('input[name="read-status"]:checked').value
     : false;
-  const book = new Book(
-    authorInput,
-    titleInput,
-    numPagesInput,
-    formatInput,
-    readStatusInput
-  );
-  myLibrary.addBook(book);
-  modalForm.reset();
-  handleModalClose();
+
+  if (author.validity.valid && title.validity.valid) {
+    const book = new Book(
+      author.value,
+      title.value,
+      numPages,
+      format,
+      readStatus
+    );
+    myLibrary.addBook(book);
+    modalForm.reset();
+    handleModalClose();
+  }
+}
+
+function handleInputValidation(input, inputError) {
+  if (input.validity.valid) {
+    inputError.textContent = "";
+    inputError.className = "error";
+  } else {
+    handleInputError(input, inputError);
+  }
+}
+
+function handleInputError(input, inputError) {
+  if (input.validity.valueMissing) {
+    inputError.textContent = `Please provide the ${input.id} of the book.`;
+  }
+  inputError.className = "error active";
 }
 
 function handleReadStatusToggle(e) {
@@ -229,6 +257,13 @@ function init() {
   library.addEventListener("click", handleLibraryClick);
   modalCloseBtn.addEventListener("click", handleModalClose);
   modalForm.addEventListener("submit", (e) => handleFormSubmit(e));
+
+  title.addEventListener("input", () =>
+    handleInputValidation(title, titleError)
+  );
+  author.addEventListener("input", () =>
+    handleInputValidation(author, authorError)
+  );
 
   // CREATE DUMMY DATA
   let book1 = new Book(
